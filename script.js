@@ -12,9 +12,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 welcomeText.style.transform = 'translateY(-20px) translateX(-50%)';
             }
 
-            // Trigger confetti na het openen van de envelop
+            // Trigger confetti knal na het openen van de envelop
             setTimeout(() => {
                 fireConfetti();
+
+                // Start subtiele, continue regen van confetti
+                setInterval(() => {
+                    confetti({
+                        particleCount: 2,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#cba153', '#734380', '#d4af37'],
+                        zIndex: 0
+                    });
+                    confetti({
+                        particleCount: 2,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#cba153', '#734380', '#d4af37'],
+                        zIndex: 0
+                    });
+                }, 400);
             }, 1200);
         }
     });
