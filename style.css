@@ -498,13 +498,7 @@ body {
     display: none;
 }
 
-.envelope-wrapper.open {
-    transform: translateY(20px);
-}
-
-.envelope-wrapper.open:hover {
-    transform: translateY(20px);
-}
+/* Oude conflicterende open state verwijderd */
 
 /* Responsive (Mobile first approach corrections) */
 @media (max-width: 500px) {
@@ -546,13 +540,18 @@ body {
     }
 
     .envelope-wrapper.open {
-        transform: scale(0.85) translateY(20px);
+        transform: translateY(30px) scale(0.85);
+    }
+
+    .envelope-wrapper.open .top-flap {
+        transform: rotateX(180deg);
     }
 
     .envelope-wrapper.open .letter {
-        height: 580px;
-        bottom: -50px;
+        height: 540px;
+        bottom: 0px;
         padding: 5px;
+        transform: scale(1);
     }
 
     .letter-content {
