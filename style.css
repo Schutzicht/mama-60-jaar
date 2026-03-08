@@ -323,7 +323,7 @@ body {
     }
 
     20% {
-        transform: translate(-50%, -50%) scale(1.15);
+        transform: scale(1.15);
     }
 }
 
@@ -335,8 +335,8 @@ body {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 1;
-    /* Achter de container */
+    z-index: 105;
+    /* Voor de open modal layer (100) */
     overflow: hidden;
 }
 
