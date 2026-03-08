@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.getElementById('envelope-wrapper');
+    const oystersContainer = document.getElementById('oysters-container');
+    let oystersInterval;
 
     wrapper.addEventListener('click', (e) => {
         if (wrapper.classList.contains('open')) {
@@ -16,9 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 welcomeText.style.transform = 'translateY(-30px) translateX(-50%)';
             }
 
-            // Trigger confetti knal na het openen van de envelop
+            // Trigger confetti en oesters na het openen van de envelop
             setTimeout(() => {
                 fireConfetti();
+                startOysters();
 
                 // Start subtiele, continue regen van confetti
                 setInterval(() => {
@@ -42,6 +45,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         }
     });
+
+    function startOysters() {
+        if (oystersInterval) return;
+
+        // Initial burst
+        for (let i = 0; i < 5; i++) {
+            spawnOyster();
+        }
+
+        // Continuous stream
+        oystersInterval = setInterval(spawnOyster, 800);
+    }
+
+    function spawnOyster() {
+        const oyster = document.createElement('div');
+        oyster.classList.add('floating-oyster');
+        oyster.innerText = '🦪';
+
+        // Random horizontal start position start between 5% and 95%
+        oyster.style.left = Math.random() * 90 + 5 + 'vw';
+
+        // Random size variation
+        const scale = Math.random() * 0.8 + 0.6;
+        oyster.style.transform = `scale(${scale})`;
+
+        // Random animation duration between 6s and 12s
+        const duration = Math.random() * 6 + 6;
+        oyster.style.animationDuration = duration + 's';
+
+        oystersContainer.appendChild(oyster);
+
+        // Remove after animation completes
+        setTimeout(() => {
+            if (oyster.parentNode) {
+                oyster.parentNode.removeChild(oyster);
+            }
+        }, duration * 1000);
+    }
 
     function fireConfetti() {
         var isMobile = window.innerWidth < 500;
