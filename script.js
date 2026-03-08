@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.getElementById('envelope-wrapper');
+    const letter = document.getElementById('letter');
     const oystersContainer = document.getElementById('oysters-container');
     let oystersInterval;
 
     wrapper.addEventListener('click', (e) => {
-        if (wrapper.classList.contains('open')) {
-            if (e.target.closest('.letter')) return; // Allow reading letter without toggling things
-        }
-
         if (!wrapper.classList.contains('open')) {
             wrapper.classList.add('open');
+            letter.classList.add('open');
 
             // Verberg welkomsttekst
             const welcomeText = document.getElementById('welcome-text');

@@ -366,22 +366,32 @@ body {
 
 .letter {
     position: absolute;
-    background: linear-gradient(135deg, rgba(253, 250, 251, 1) 0%, rgba(240, 244, 248, 0.95) 100%);
-    width: 90%;
-    height: 90%;
-    left: 5%;
-    bottom: 5%;
+    width: 340px;
+    height: 220px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* Start gereset binnen .container */
     border-radius: 12px;
+    background: linear-gradient(135deg, rgba(253, 250, 251, 1) 0%, rgba(240, 244, 248, 0.95) 100%);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
-    transition: transform 1.2s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), height 1s 0.6s, width 1s 0.6s, top 1s 0.6s, left 1s 0.6s, bottom 1s 0.6s, box-shadow 1s 0.6s;
+    transition: transform 1.2s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), height 1s 0.6s, width 1s 0.6s, top 1s 0.6s, left 1s 0.6s, z-index 0s 0.6s, box-shadow 1s 0.6s;
     z-index: 2;
+    /* Achter de flappen van de envelop (z-index 4,5), maar wel binnen .container */
     padding: 12px;
     text-align: center;
     background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="%23cbd5e1" /></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)" /></svg>');
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    /* Niet klikbaar in dichte staat */
 }
+
+/* De gesloten staat van de brief moet ONDER de voorste flap liggen in visuele weergave,
+   dus dit simuleren we nu de brief buiten de envelop is geplaatst door z-indexes */
+
 
 .letter-content {
     background: rgba(255, 255, 255, 0.65);
@@ -514,6 +524,8 @@ body {
 .envelope-wrapper.open {
     transform: translateY(40px) scale(0.95);
     animation: none;
+    pointer-events: none;
+    /* Voorkom clicks op de lege envelop padding */
 }
 
 .envelope-wrapper.open .top-flap {
@@ -528,19 +540,24 @@ body {
     transition: opacity 0.4s, transform 0.4s;
 }
 
-.envelope-wrapper.open .letter {
+/* De open brief! */
+.letter.open {
+    opacity: 1;
+    pointer-events: auto;
     height: 560px;
-    z-index: 6;
-    bottom: -30px;
+    width: 400px;
+    z-index: 20;
+    /* Boven de envelop uit laten steken */
+    transform: translate(-50%, -60%) scale(1.02);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(2, 132, 199, 0.15);
-    transform: scale(1.02);
 }
 
-.envelope-wrapper.open .letter-content {
+.letter.open .letter-content {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
+.envelope-wrapper.open+.click-indicator,
 .envelope-wrapper.open .click-indicator {
     display: none;
 }
@@ -597,12 +614,7 @@ body {
         transform: rotateX(180deg);
     }
 
-    .envelope-wrapper .letter {
-        bottom: auto;
-        top: 0;
-    }
-
-    .envelope-wrapper.open .letter {
+    .letter.open {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
