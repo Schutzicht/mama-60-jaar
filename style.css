@@ -580,6 +580,7 @@ body {
         width: 320px;
         height: 210px;
         transform: scale(0.9);
+        margin: 0 auto;
     }
 
     .envelope-wrapper:hover {
@@ -587,8 +588,8 @@ body {
     }
 
     .envelope-wrapper.open {
-        transform: none !important;
-        /* Verwijder scale() zodat de 100vw/100vh letter perfect uitschaalt! */
+        /* Schuift de envelop iets naar onder & verkleint hem op de achtergrond */
+        transform: translateY(100px) scale(0.85) !important;
     }
 
     .envelope-wrapper.open .top-flap {
@@ -602,17 +603,17 @@ body {
 
     /* Fixed mobile reading mode: 100% viewport modal, geen lege ruimte */
     .envelope-wrapper.open .letter {
-        position: absolute;
-        /* Wrapper has no transform now, so it maps to the flex container or window */
-        top: 50% !important;
-        left: 50% !important;
+        position: fixed;
+        top: 0 !important;
+        left: 0 !important;
         width: 100vw !important;
         height: 100dvh !important;
         max-height: none !important;
-        transform: translate(-50%, -50%) !important;
+        transform: none !important;
         border-radius: 0;
-        padding: 10px;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        padding: 40px 15px 15px 15px;
+        /* Extra padding top boven tekst */
+        box-shadow: none;
         z-index: 100;
         background: linear-gradient(135deg, rgba(253, 250, 251, 1) 0%, rgba(240, 244, 248, 1) 100%);
     }
